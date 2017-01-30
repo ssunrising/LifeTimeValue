@@ -40,4 +40,6 @@ Rank      LTV (USD)       customer_ID      Last_Name
  1         416.00                   C       Smith
  2         312.00                   B       Rizzo
 
+A word about time complexity of the program:
+Currently, the TopXSimpleLTVCustomers(x, D) function has O(nlogx) complexity, there n is the total number of customers. In the future, a combination of data structures (like an arrayList and one or two hashmaps) can be used to replace the current data container: private HashMap<String, LTVData> m_mapLTV. That way, the calculation burden can be shifted to the ingestion of each event (amortized constant time per event ingestion), and the final query of TopXSimpleLTVCustomers(x, D) can be reduced to constant time, because all the results are already readily available in the new data structures.
 

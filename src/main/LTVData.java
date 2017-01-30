@@ -41,4 +41,37 @@ public class LTVData {
 	public static int getAveragelifespan() {
 		return averageLifespan;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Arrays.hashCode(m_expenseByWeek);
+		result = prime * result + Arrays.hashCode(m_visitCountByWeek);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		LTVData other = (LTVData) obj;
+		if (!Arrays.equals(m_expenseByWeek, other.m_expenseByWeek))
+			return false;
+		if (!Arrays.equals(m_visitCountByWeek, other.m_visitCountByWeek))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "LTVData [m_visitCountByWeek=" + Arrays.toString(m_visitCountByWeek) + ", m_expenseByWeek="
+				+ Arrays.toString(m_expenseByWeek) + "]";
+	}
+	
+	
 }
