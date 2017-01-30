@@ -10,7 +10,7 @@
 {"type": "ORDER", "verb": "NEW", "key": "68d94e5d1a02", "event_time": "2017-02-25:12:55.55.555Z", "customer_id": "96f55c7d8f02", "total_amount": "3.00 USD"},
 {"type": "SITE_VISIT", "verb": "NEW", "key": "ac05e816610f", "event_time": "2017-03-08:12:45:52.041Z", "customer_id": "96f55c7d8f01", "tags": {"some key": "some value"}},
 {"type": "ORDER", "verb": "UPDATE", "key": "68d94e5d1a01", "event_time": "2017-03-08:12:55.55.555Z", "customer_id": "96f55c7d8f01", "total_amount": "3.00 USD"},
-{"type": "CUSTOMER", "verb": "NEW", "key": "96f55c7d8f04", "event_time": "2017-03-10:12:46.384Z", "last_name": "Simmerling", "adr_city": "Glencove", "adr_state": "AZ"},
+{"type": "CUSTOMER", "verb": "NEW", "key": "96f55c7d8f04", "event_time": "2017-03-10:12:46.384Z", "last_name": "Jones", "adr_city": "Glencove", "adr_state": "AZ"},
 {"type": "SITE_VISIT", "verb": "NEW", "key": "ac05e816605f", "event_time": "2017-03-10:12:45:52.041Z", "customer_id": "96f55c7d8f03", "tags": {"some key": "some value"}},
 {"type": "ORDER", "verb": "NEW", "key": "68d94e5d1a45", "event_time": "2017-03-10:12:55.55.555Z", "customer_id": "96f55c7d8f03", "total_amount": "7.00 USD"},
 {"type": "SITE_VISIT", "verb": "NEW", "key": "ac05e816620f", "event_time": "2017-03-12:12:45:52.041Z", "customer_id": "96f55c7d8f02", "tags": {"some key": "some value"}},

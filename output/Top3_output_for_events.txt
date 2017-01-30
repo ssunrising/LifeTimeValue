@@ -1,0 +1,4 @@
+Rank      LTV (USD)       customer_ID      Last_Name
+ 1         330.91        96f55c7d8f03        Boon
+ 2         189.09        96f55c7d8f01       Smith
+ 3          94.55        96f55c7d8f04       Jones

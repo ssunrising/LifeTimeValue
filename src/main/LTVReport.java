@@ -2,7 +2,9 @@ package main;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.Collections;
@@ -23,13 +25,6 @@ public class LTVReport {
 
 	public void setMyData(Data myData) {
 		this.myData = myData;
-	}
-
-	private int getWeekOfYear(Event e){
-		String date = e.getEvent_time().split(":")[0];
-		Calendar sDateCalendar = new GregorianCalendar();		
-		sDateCalendar.set(Integer.parseInt(date.split("-")[0]), Integer.parseInt(date.split("-")[1])-1, Integer.parseInt(date.split("-")[2]));
-		return sDateCalendar.get(Calendar.WEEK_OF_YEAR);		
 	}
 	
 	/* 
@@ -123,7 +118,7 @@ public class LTVReport {
 			
 			myData.getM_mapOrders().put(orderKey, order);
 			
-			// update a previous order to new amount: substract oldexpense and then add the expense
+			// update a previous order to new amount: substract oldexpense from the old week bucket and add the updated expense to the new week bucket.
 			String date = e.getEvent_time().split(":")[0];
 			int week = getWeekOfYear(date);
 			myData.setBeginWeek(Math.min(week, myData.getBeginWeek()));
@@ -146,7 +141,7 @@ public class LTVReport {
 		since we want the topX customer expenditures, make this map in descending order */
 		TreeMap<Double, String> ltvMap = new TreeMap<>(Collections.reverseOrder());
 		
-		/* calculate top x with highest LVT;
+		/* calculate top x with highest LTV;
 		   A simple LTV can be calculated using the following equation: 52(a) x t
 		   a: the average customer value per week and calculated using sum / (endWeek-beginWeek+1) * numberofWeeks
 		   t: the average customer lifespan 
@@ -155,6 +150,7 @@ public class LTVReport {
 			double sum = 0.0;
 			int beginWeek = myData.getBeginWeek();
 			int endWeek = myData.getEndWeek();
+			
 			for (int i = beginWeek; i <= endWeek; i++){
 				sum += entry.getValue().getM_expenseByWeek(i-1);
 			}
@@ -164,6 +160,7 @@ public class LTVReport {
 			double ltv = sum / (endWeek-beginWeek+1) * numberofWeeks * averageLifespan;
 			ltvMap.put(ltv, entry.getKey());
 			// if the map size is larger than x, we pop out 
+			// this reduce the time complexity from o(n*logn) to o(n*logx), where n is the total number of customers. 
 			if(ltvMap.size() > x) ltvMap.pollLastEntry();
 		}
 		
@@ -180,11 +177,11 @@ public class LTVReport {
 		// return this ltvMap which contains topX customer expenditures
 		return ltvMap;
 	}
-	
+		
 	public void ReadDataFromFile(String filename) {
-		String file = "input/" + filename;
+		String inputFile = "input/" + filename;
 		try{
-			FileReader reader = new FileReader(file);
+			FileReader reader = new FileReader(inputFile);
 			BufferedReader br = new BufferedReader(reader);
 			String line;
 			while ((line = br.readLine()) != null){
@@ -197,11 +194,40 @@ public class LTVReport {
 		}
 	}
 	
+	public void WriteToFile(TreeMap<Double, String> ltvMap, String filename){
+		String outputFile = "output/" + filename;
+		System.out.println(outputFile);
+		int rank = 1;
+		try{
+			PrintWriter writer = new PrintWriter(outputFile, "UTF-8");
+			writer.println(String.format("%2s", "Rank") + String.format("%15s", "LTV (USD)") + String.format("%18s", "customer_ID") + String.format("%15s", "Last_Name"));
+			
+			for (Map.Entry<Double, String> entry : ltvMap.entrySet()){
+				double ltv = entry.getKey();
+				String customerid = entry.getValue();
+				String last_name = myData.getM_mapCustomers().get(customerid).getLast_name();
+				DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
+				String ltvStr = decimalFormat.format(ltv);
+				writer.println(String.format("%2s", rank) + String.format("%15s", ltvStr) + String.format("%20s", customerid) + String.format("%12s", last_name));
+				rank++;
+			}
+			writer.close();
+		}
+		catch(IOException E){
+			E.printStackTrace();
+		}		
+	}
+	
 	public static void main(String[] args){
 		LTVReport report = new LTVReport();
-		//String filename = "SimpleTestC.txt";
-		String filename = "events.txt";
-		report.ReadDataFromFile(filename);
-		report.TopXSimpleLTVCustomers(2, report.myData);	
+		//String inputFile = "events.txt";
+		String inputFile = "SimpleTestC.txt";
+		int topK = 2;
+		String outputFile = "Top" + String.valueOf(topK) + "_output_for_" + inputFile;
+		System.out.println("outputFile");
+		
+		report.ReadDataFromFile(inputFile);
+		TreeMap<Double, String> ltvMap = report.TopXSimpleLTVCustomers(topK, report.myData);	
+		report.WriteToFile(ltvMap, outputFile);
 	}
 }

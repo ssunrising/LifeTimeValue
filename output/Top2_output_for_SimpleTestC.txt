@@ -1,0 +1,3 @@
+Rank      LTV (USD)       customer_ID      Last_Name
+ 1         416.00                   C       Smith
+ 2         312.00                   B       Rizzo

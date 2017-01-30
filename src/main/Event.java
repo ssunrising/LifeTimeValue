@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Event {
-
 	// shared
 	private String type;
 	private String verb;
@@ -30,9 +29,6 @@ public class Event {
 	private String order_id;
 	private double total_amount;
 	
-	
-
-
 	public Event(String type, String verb, String key, String event_time, String customer_id, String last_name,
 			String adr_city, String adr_state, HashMap<String, String> tags, String image_id, String camera_make,
 			String camera_model, String order_id, double total_amount) {
@@ -54,11 +50,11 @@ public class Event {
 	}
 
 	public Event(String str){
-		//System.out.println(str);
 		String[] entries = str.split(",");
 		for (int i = 0; i < entries.length; i++){
 			String info = entries[i];
 			if (info == null || info.length() == 0) continue;
+			
 			int j = 0, n = info.length();
 			StringBuilder A = new StringBuilder();
 			StringBuilder B = new StringBuilder();
@@ -73,28 +69,40 @@ public class Event {
 				++j;
 			}
 			else {
-				
+				// deal with tag information
 			}
-			System.out.println(A.toString() + " " + B.toString());
-			if(A.toString().equals("type")) this.type = B.toString();
-			else if(A.toString().equals("verb")) this.verb = B.toString();
-			else if(A.toString().equals("key")) this.key = B.toString();
-			else if(A.toString().equals("event_time")) this.event_time = B.toString();
-			else if(A.toString().equals("customer_id")) this.customer_id = B.toString();
-			else if(A.toString().equals("last_name")) this.last_name = B.toString();
-			else if(A.toString().equals("adr_city")) this.adr_city = B.toString();
-			else if(A.toString().equals("adr_state")) this.adr_state = B.toString();
+			
+			if(A.toString().equals("type")){
+				this.type = B.toString();
+			}else if(A.toString().equals("verb")){
+				this.verb = B.toString();
+			}else if(A.toString().equals("key")){
+				this.key = B.toString();
+			}else if(A.toString().equals("event_time")){
+				this.event_time = B.toString();
+			}else if(A.toString().equals("customer_id")){
+				this.customer_id = B.toString();
+			}else if(A.toString().equals("last_name")){
+				this.last_name = B.toString();
+			}else if(A.toString().equals("adr_city")){
+				this.adr_city = B.toString();
+			}else if(A.toString().equals("adr_state")) {
+				this.adr_state = B.toString();
+			}
 			//else if(A.toString().equals("tags")) {}
-			else if(A.toString().equals("image_id")) this.image_id = B.toString();
-			else if(A.toString().equals("camera_make")) this.camera_make = B.toString();
-			else if(A.toString().equals("camera_model")) this.camera_model = B.toString();
-			else if(A.toString().equals("order_id")) this.order_id = B.toString();
-			else if(A.toString().equals("total_amount")) {
+			else if(A.toString().equals("image_id")) {
+				this.image_id = B.toString();
+			}else if(A.toString().equals("camera_make")) {
+				this.camera_make = B.toString();
+			}else if(A.toString().equals("camera_model")) {
+				this.camera_model = B.toString();
+			}else if(A.toString().equals("order_id")) {
+				this.order_id = B.toString();
+			}else if(A.toString().equals("total_amount")) {
 				String amount = B.toString().substring(0, B.toString().length() - 3);
 				System.out.println("amount " + amount);
 				this.total_amount = Double.parseDouble(amount);
-			}
-			
+			}			
 		}
 	}
 
@@ -194,6 +202,6 @@ public class Event {
 		this.total_amount = total_amount;
 	}
 
-
+	
 
 }
