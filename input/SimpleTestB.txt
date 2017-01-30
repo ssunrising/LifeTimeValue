@@ -1,0 +1,7 @@
+[{"type": "CUSTOMER", "verb": "NEW", "key": "A", "event_time": "2017-03-06:12:46.384Z", "last_name": "Green", "adr_city": "Stonybrook", "adr_state": "CA"},
+{"type": "SITE_VISIT", "verb": "NEW", "key": "visit01", "event_time": "2017-03-06:12:45:52.041Z", "customer_id": "A", "tags": {"some key": "some value"}},
+{"type": "ORDER", "verb": "NEW", "key": "order01", "event_time": "2017-03-06:12:55.55.555Z", "customer_id": "A", "total_amount": "1.00 USD"},
+{"type": "CUSTOMER", "verb": "NEW", "key": "B", "event_time": "2017-02-06:12:46.384Z", "last_name": "Rizzo", "adr_city": "Smithtown", "adr_state": "NY"},
+{"type": "SITE_VISIT", "verb": "NEW", "key": "visit02", "event_time": "2017-02-06:12:45:52.041Z", "customer_id": "B", "tags": {"some key": "some value"}},
+{"type": "ORDER", "verb": "NEW", "key": "order02", "event_time": "2017-02-06:12:55.55.555Z", "customer_id": "B", "total_amount": "2.00 USD"},
+{"type": "ORDER", "verb": "UPDATE", "key": "order02", "event_time": "2017-02-26:12:55.55.555Z", "customer_id": "B", "total_amount": "3.00 USD"}]
