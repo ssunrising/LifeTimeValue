@@ -123,8 +123,4 @@ public class Customer {
 		return "Customer [customer_id=" + customer_id + ", event_time=" + event_time + ", last_name=" + last_name
 				+ ", adr_city=" + adr_city + ", adr_state=" + adr_state + "]";
 	}
-
-	
-	
-
 }
